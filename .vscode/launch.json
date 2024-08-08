@@ -3,11 +3,21 @@
     "version": "0.1.0",
     "configurations": [
         {
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}",
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "name": "Launch Extension",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
+                "--profile=vCoreDevelopment", // uses a local profile with a limited number of installed extensions
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
             "outFiles": [

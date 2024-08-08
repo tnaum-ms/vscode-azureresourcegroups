@@ -19,6 +19,14 @@ export function getAzureExtensions(): AzExtWrapper[] {
     return wrappers;
 }
 
+export function enableMongoClustersSupport(): boolean {
+    const resourceTypeExtension = getAzureExtensions().find(ext => ext.matchesAzExtResourceTypeResourceType(AzExtResourceType.MongoClusters));
+
+    console.log('resourceTypeExtension', resourceTypeExtension);
+
+    return getAzureExtensions().some(e => e.name === 'vscode-cosmosdb' && e.meetsMinVersion);
+}
+
 export function getInstalledAzureExtensions(): AzExtWrapper[] {
     const azExtensions: AzExtWrapper[] = getAzureExtensions();
     return azExtensions.filter(e => !!e.getCodeExtension());
@@ -61,6 +69,10 @@ export class AzExtWrapper {
 
     public matchesApplicationResourceType(resource: AzureResource): boolean {
         return this._resourceTypes.some(rt => rt === resource.resourceType);
+    }
+
+    public matchesAzExtResourceTypeResourceType(resourceType: AzExtResourceType): boolean {
+        return this._resourceTypes.some(rt => rt === resourceType);
     }
 
     public getCodeExtension(): Extension<apiUtils.AzureExtensionApiProvider> | undefined {

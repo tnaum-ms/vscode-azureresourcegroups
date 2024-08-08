@@ -169,6 +169,8 @@ export async function activate(context: vscode.ExtensionContext, perfStats: { lo
     const getSubscriptions: (filter: boolean) => Promise<AzureSubscription[]> =
         async (filter: boolean) => { return await (await azureResourceTreeDataProvider.getAzureSubscriptionProvider()).getSubscriptions(filter) };
 
+    //enableMongoClustersSupport();
+
     return createApiProvider(
         [
             {
